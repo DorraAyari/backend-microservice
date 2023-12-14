@@ -1,8 +1,6 @@
 package com.example.microservicefinal.DAO.Entities;
 
 
-
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +14,6 @@ public class Currency {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
 
     private String code; // Code de la devise (par exemple, USD, EUR)

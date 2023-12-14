@@ -39,6 +39,11 @@ public class CurrencyService implements ICurrency {
     }
 
     @Override
+    public Currency findAllById(long id) {
+        return currencyRepository.findById(id).get();
+    }
+
+    @Override
     public String delete(long id) {
         if (currencyRepository.findById(id).isPresent()) {
             currencyRepository.deleteById(id);

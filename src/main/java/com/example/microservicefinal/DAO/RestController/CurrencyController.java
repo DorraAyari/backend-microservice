@@ -1,6 +1,7 @@
 package com.example.microservicefinal.DAO.RestController;
 
 
+import com.example.microservicefinal.DAO.Entities.Blog;
 import com.example.microservicefinal.DAO.Entities.Currency;
 import com.example.microservicefinal.DAO.Service.ICurrency;
 import lombok.AllArgsConstructor;
@@ -12,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("Currency")
 @AllArgsConstructor
+@CrossOrigin("http://localhost:4200")
 public class CurrencyController {
 
     @Autowired
@@ -33,5 +35,10 @@ public class CurrencyController {
         List<Currency> findAll(){
         return currency.findAll();
     }
+    @GetMapping("/{id}")
+    Currency findById(@PathVariable("id") Long id){
+        return currency.findAllById(id);
     }
+
+}
 

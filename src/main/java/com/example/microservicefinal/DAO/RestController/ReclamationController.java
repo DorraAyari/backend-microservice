@@ -1,6 +1,7 @@
 package com.example.microservicefinal.DAO.RestController;
 
 
+
 import com.example.microservicefinal.DAO.Entities.Reclamation;
 import com.example.microservicefinal.DAO.Service.IReclamationService;
 import lombok.AllArgsConstructor;
@@ -14,10 +15,10 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("Reclamation")
+@CrossOrigin("http://localhost:4200")
 public class ReclamationController {
 
 
-    @Autowired
     IReclamationService iReclamationService;
 
     @PostMapping("/add")
@@ -27,23 +28,23 @@ public class ReclamationController {
     }
 
 
-    @PutMapping("update/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Reclamation> updateReclamation(@PathVariable(value = "id") int id, @RequestBody Reclamation reclamation){
-        return new ResponseEntity<>(iReclamationService.editReclamation(id,reclamation), HttpStatus.OK);
+    @PutMapping(value = "update/{id}", consumes = "application/json", produces = "application/json")
+    Reclamation updateReclamation(@PathVariable("id") Long idReclamation, @RequestBody  Reclamation reclamation){
+        return iReclamationService.updateReclamation(idReclamation, reclamation);
     }
-
 
     @DeleteMapping("delete/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> deleteReclamation(@PathVariable(value = "id") long id){
-        return new ResponseEntity<>(iReclamationService.deleteReclamationById(id), HttpStatus.OK);
-    }
+    void  deleteReclamation(@PathVariable("id") long id)
+        {iReclamationService.deleteReclamationById(id);}
 
     @GetMapping("/findAll")
     @ResponseStatus(HttpStatus.OK)
     public  ResponseEntity<List<Reclamation>> getAllReclamations(){
         return new ResponseEntity<>(iReclamationService.findAllReclamation(), HttpStatus.OK);
+    }
+    @GetMapping("/{id}")
+    Reclamation findById(@PathVariable("id") Long id){
+        return iReclamationService.findAllById(id);
     }
 
 }

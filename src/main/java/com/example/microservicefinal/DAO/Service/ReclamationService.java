@@ -2,7 +2,6 @@ package com.example.microservicefinal.DAO.Service;
 
 import com.example.microservicefinal.DAO.Entities.Reclamation;
 import com.example.microservicefinal.DAO.Repositories.ReclamationRepository;
-import com.example.microservicefinal.DAO.Service.IReclamationService;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +22,15 @@ public class ReclamationService implements IReclamationService {
     }
 
     @Override
-    public Reclamation editReclamation(long id , Reclamation newReclamation) {
-        if (recalamtionRepository.findById(id).isPresent()){
-            Reclamation existingReclamation = recalamtionRepository.findById(id).get();
+    public Reclamation updateReclamation(long idReclamation , Reclamation newReclamation) {
+        if (recalamtionRepository.findById(idReclamation).isPresent()){
+            Reclamation existingReclamation = recalamtionRepository.findById(idReclamation).get();
             existingReclamation.setTitreReclamation(newReclamation.getTitreReclamation());
             existingReclamation.setDescriptionRec(newReclamation.getDescriptionRec());
             return  recalamtionRepository.save(existingReclamation);
         }else
             return null;
     }
-
 
     @Override
     public List<Reclamation> findAllReclamation() {
@@ -46,6 +44,11 @@ public class ReclamationService implements IReclamationService {
             return "Reclamation supprimé";
         } else
             return "Reclamation non supprimé";
+    }
+
+    @Override
+    public Reclamation findAllById(long id) {
+        return recalamtionRepository.findById(id).get();
     }
 
 }
